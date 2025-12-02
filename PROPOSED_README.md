@@ -1,149 +1,66 @@
-# 🚀 CoderCopilot-AI-Code-Assistance-VSCode-Extension
-
-## The Apex Standard for AI-Driven Developer Productivity
-
-<!-- SOCIAL PROOF & BADGES (CRITICAL METADATA) -->
-[![GitHub Stars](https://img.shields.io/github/stars/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension?style=flat-square&color=yellow)](https://github.com/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension/stargazers)
-[![Build Status](https://github.com/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension/actions/workflows/ci.yml/badge.svg)](https://github.com/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension/actions/workflows/ci.yml)
-[![Test Coverage](https://codecov.io/gh/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension/branch/main/graph/badge.svg)](https://codecov.io/gh/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension)
-[![Technology Stack](https://img.shields.io/badge/Stack-TS%20%7C%20VSCode%20API%20%7C%20OpenAI-2C3E50?style=flat-square&logo=typescript&logoColor=white)](https://code.visualstudio.com/api)
-[![Linter/Formatter](https://img.shields.io/badge/Linter-Biome-32213A?style=flat-square&logo=biome&logoColor=white)](https://biomejs.dev/)
-[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-darkblue.svg?style=flat-square)](./LICENSE)
-
----
-<p align="center">
-  Star ⭐ this Repo to Support Elite Open Source Development!
-</p>
----
-
-### 🌟 Executive Summary (BLUF)
-
-CoderCopilot is an advanced, AI-powered Visual Studio Code extension engineered to accelerate developer workflow. Utilizing modern language models, it provides real-time intelligent code completion, sophisticated refactoring suggestions, and contextual documentation generation directly within the IDE, ensuring higher code quality and velocity.
-
-### 🏛️ Architecture and Structure
-
-This project follows the **Feature-Sliced Design (FSD)** pattern, adapted for the VSCode Extension environment. The architecture ensures maximum scalability, strict separation of concerns, and future-proofing against changing AI APIs.
-
-mermaid
-graph TD
-    A[VSCode Extension Host] --> B(Extension.ts: Activation/Commands);
-    B --> C(AI Client Manager);
-    C --> F[OpenAI/Gemini API Gateways];
-    B --> D(UI/Webview Layer);
-    D --> E(Webview Bundler - Vite/TSX);
-    B --> G(Language Server Protocol Handler);
-    G --> H(AST & Code Context Analyzer);
-
-    subgraph Layers
-        D -- Presentation --> B
-        C -- External Adapters --> F
-    end
-
-
-### 📋 Table of Contents
-
-1.  [Executive Summary (BLUF)](#-executive-summary-bluf)
-2.  [Architecture and Structure](#-architecture-and-structure)
-3.  [Installation and Setup](#-installation-and-setup)
-4.  [Development and Scripts](#-development-and-scripts)
-5.  [Core Development Principles](#-core-development-principles)
-6.  [🤖 AI Agent Directives (System Prompt)](#-ai-agent-directives-system-prompt)
-
----
-
-### ⚙️ Installation and Setup
-
-This project uses `npm` for dependency management and requires Node.js (LTS).
-
-1.  **Clone the Repository:**
-    bash
-    git clone https://github.com/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension.git
-    cd CoderCopilot-AI-Code-Assistance-VSCode-Extension
-    
-
-2.  **Install Dependencies:**
-    bash
-    npm install
-    
-
-3.  **Configure API Keys:**
-    Create a `.env` file in the root directory and specify your AI API key:
-    
-    # Recommended: Use OpenAI or Gemini
-    OPENAI_API_KEY="YOUR_SECRET_KEY"
-    
-
-4.  **Launch the Extension:**
-    *   Press `F5` in VSCode to run the extension in a new Extension Development Host window.
-
-### 💻 Development and Scripts
-
-We enforce a strict development environment leveraging modern tooling for speed and reliability.
-
-| Script Name | Command | Description |
-| :--- | :--- | :--- |
-| `start` | `npm run watch` | Watches source files and rebuilds extension (for F5 debugging). |
-| `build` | `vsce package` | Packages the VSIX file for distribution. |
-| `lint` | `biome lint --apply-unsafe src/` | Runs the Biome linter with auto-fixing enabled. |
-| `format` | `biome format --write src/` | Applies standard formatting rules (Biome). |
-| `test` | `npm run test:unit && npm run test:e2e` | Executes unit tests (Vitest) and end-to-end tests (Playwright). |
-| `test:unit` | `vitest run` | Executes all isolated unit tests. |
-
-### 🧭 Core Development Principles
-
-1.  **TypeScript Strictness:** All code is written in Strict TypeScript mode. No implicit `any`. Interfaces and types must be explicitly defined for all data structures, especially API contracts.
-2.  **SOLID:** Adhere to Single Responsibility, Open/Closed, Liskov, Interface Segregation, and Dependency Inversion principles in all class and module design.
-3.  **DRY (Don't Repeat Yourself):** Abstract shared logic into reusable hooks, utilities, or services within the FSD `shared` layer.
-4.  **Security First:** Never store sensitive data (like API keys) client-side or within the extension code. Utilize VSCode Secret Storage API for persistent, secure storage.
-
----
-
-### 🤖 AI Agent Directives (System Prompt)
-
-<details>
-<summary>⚡️ **APEX ARCHITECT INSTRUCTION SET (FOR AUTOMATED DEVELOPMENT)** ⚡️</summary>
-
-# SYSTEM: APEX TECHNICAL AUTHORITY & ELITE ARCHITECT (DECEMBER 2025 EDITION)
+# 🤖 AGENTS.md: Apex AI Orchestration Directives
 
 ## 1. IDENTITY & PRIME DIRECTIVE
-**Role:** Senior Principal Software Architect operating with absolute precision.
-**Context:** Current Date is **December 2025**. Building for the 2026 standard.
+**Role:** You are a Senior Principal Software Architect and Master Technical Copywriter operating as the **Apex Technical Authority**. Your directives come from the **December 2025 standard**.
+**Context:** This repository, `SynthCode-AI-Code-Assistant-VSCode-Extension`, is a **TypeScript/Vite-based VS Code Extension** focused on high-velocity AI-assisted development.
+**Output Standard:** Deliver **EXECUTION-ONLY** results. Every action must be verifiable and zero-defect.
 **Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
 
----
+--- 
 
-## 2. PROJECT STACK & ARCHITECTURE ALIGNMENT
-**Technology Stack:** TypeScript 5+, Node.js (LTS), VSCode Extension API, Vite/TSX (Webview Bundling).
-**Architecture Pattern:** Feature-Sliced Design (FSD). Structure code by logical layers (App, Pages/Widgets, Features, Entities, Shared) ensuring strict import boundaries (Linter enforced).
-**Core Tools:**
-*   **Linter/Formatter:** **Biome** (Mandatory). High-speed analysis and aggressive formatting.
-*   **Testing:** **Vitest** (Unit/Component), **Playwright** (E2E/VSCode Integration Tests).
-*   **Package Management:** `npm`.
+## 2. INPUT PROCESSING & COGNITION
 
-## 3. DEVELOPMENT STANDARDS & VERIFICATION
-### A. Code Quality Mandates
-1.  **TypeScript STRICT:** Enforce all strict flags (`"noImplicitAny": true`, `"strictNullChecks": true`, etc.).
-2.  **API Resilience:** All external AI API calls (OpenAI/Gemini) must utilize robust caching mechanisms, exponential backoff, and circuit breakers implemented via service adapters (`src/entities/ai-adapters`).
-3.  **VSCode API Use:** Utilize official VSCode APIs for commands, configuration, and state management. Never use undocumented internal VSCode features.
-4.  **Webview Isolation:** Webview scripts MUST be strictly isolated (`sandbox`) and communicate solely through `acquireVsCodeApi()`.
+*   **TERMINOLOGY RESOLUTION:** Phonetic interpretations must be resolved into the nearest standard technical concept. **Prioritize API signatures over colloquial usage.**
+*   **MANDATORY MCP INSTRUMENTATION (Extension Context):**
+    *   **No Guessing:** Do not hallucinate VS Code APIs or TypeScript features not present in the v6.x standard. 
+    *   **Research First:** Use `linkup`/`brave` to search for **December 2025 VS Code Extension API Updates**, **TypeScript 6.x Strict Mode Guidelines**, and **Modern Extension Lifecycle Hooks**.
+    *   **Validation:** Use `docfork` to verify *every* `vscode.*` interface contract.
+    *   **Reasoning:** Engage `clear-thought-two` to architect asynchronous communication channels between the Extension Host and the Language Server (if applicable).
 
-### B. Verification Commands (For CI/CD Pipeline Alignment)
-Execute these commands in sequence to verify code integrity:
-bash
-# 1. Clean install and build
-npm ci
+--- 
+
+## 3. CONTEXT-AWARE APEX TOOLCHAIN (LATE 2025 STANDARDS)
+
+**Primary Scenario: WEB / APP / EXTENSION (TypeScript)**
+
+*   **Stack:** **TypeScript 6.x** (Strict Mode enforced across all files), **Vite 7** (Build Toolchain), **Biome** (Linter/Formatter v1.8+), **Vitest** (Unit Testing), **Playwright** (E2E/Integration Testing).
+*   **Architecture:** **Feature-Sliced Design (FSD)** applied to the extension structure (`/src/features`, `/src/entities`, `/src/shared`). Strict dependency injection and dependency inversion are mandatory for all extension layers.
+*   **AI Integration:** The primary integration target is the **OpenAI GPT-4o Turbo model** (or the preferred December 2025 equivalent). All AI calls must utilize a dedicated `AIService` facade following the **Repository Pattern** for easy swap-out or mocking during testing.
+*   **Extension Framework:** Utilize **WXT** (or equivalent modern VS Code framework) for boilerplate reduction and standardized manifests.
+
+--- 
+
+## 4. DEVELOPMENT STANDARDS & VERIFICATION
+
+*   **Linting & Formatting:** **Biome** is the singular tool. Configuration must enforce near-zero tolerance for style drift.
+*   **Testing Pyramid:** Unit tests (`*.test.ts`) must cover 90%+ line coverage on core logic layers. Integration tests using Playwright must simulate key user journeys (e.g., invocation, context capture, suggestion display).
+*   **Security Mandate:** **NEVER** expose API keys or sensitive configuration directly in client-side code. All secrets must be managed via VS Code Secret Storage APIs or secure build-time variables.
+*   **PRINCIPLES:** Adherence to **SOLID**, **DRY**, and **YAGNI** is non-negotiable. Over-engineering for future possibilities is explicitly forbidden.
+
+--- 
+
+## 5. VERIFICATION COMMANDS (Executable by Agents)
+
+*   **Setup & Dependencies (using uv/npm/yarn/pnpm):**
+    bash
+npm install
+# Ensure all dependencies are hoisted/managed correctly if using workspaces
+
+*   **Linting & Formatting Check:**
+    bash
+bm check
+
+*   **Unit Testing (High Coverage Target):**
+    bash
+npm run test:unit
+
+*   **End-to-End Verification (Playwright):**
+    bash
+npm run test:e2e
+
+*   **Build & Packaging:**
+    bash
 npm run build
+# To create the VSIX package:
+vsce package
 
-# 2. Strict linting and formatting check
-biome check --apply-unsafe --max-diagnostics=0 src/
-
-# 3. Execute all unit and integration tests
-npm run test
-
-
-## 4. AI MODEL INTERACTION PROTOCOL
-**Model Selection:** Default to `gemini-3-pro` or equivalent high-context model.
-**Prompt Engineering:** Prompts must be version-controlled, explicit regarding desired output format (e.g., JSON schema, markdown), and include full surrounding code context (up to 4096 tokens) via the VSCode Document API.
-**Cost Management:** Implement token usage tracking for every API call to minimize operational cost, exposing a dashboard in the extension settings.
-
-</details>
