@@ -1,0 +1,37 @@
+build_status:
+  - provider: github_actions
+    workflow_name: CI
+    repository: chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension
+    branch: main
+    image_url: https://github.com/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension/actions/workflows/ci.yml/badge.svg
+    alt_text: Build Status
+
+code_coverage:
+  - provider: codecov
+    repository: chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension
+    branch: main
+    image_url: https://img.shields.io/codecov/c/github/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension
+    alt_text: Code Coverage
+
+tech_stack:
+  - language: TypeScript
+    image_url: https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white
+    alt_text: TypeScript
+  - framework: VSCode Extension
+    image_url: https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white
+    alt_text: VSCode Extension
+
+lint_format:
+  - tool: Biome
+    image_url: https://img.shields.io/badge/Biome-F2C51E?style=flat-square&logo=biome&logoColor=black
+    alt_text: Biome Linting & Formatting
+
+license:
+  - type: CC BY-NC 4.0
+    image_url: https://img.shields.io/badge/License-CC BY-NC 4.0-lightgrey?style=flat-square&logo=creativecommons
+    alt_text: CC BY-NC 4.0 License
+
+github_stars:
+  - repository: chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension
+    image_url: https://img.shields.io/github/stars/chirag127/CoderCopilot-AI-Code-Assistance-VSCode-Extension?style=flat-square&logo=github
+    alt_text: GitHub Stars
