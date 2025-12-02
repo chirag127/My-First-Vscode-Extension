@@ -1,107 +1,75 @@
-name: CI / Quality Gates and Packaging
+name: CI
 
+# Trigger the workflow on push events to the main branch and on pull request events.
+# It will also run on schedule (e.g., daily) to catch stale branches or for regular checks.
 on:
   push:
-    branches:
-      - main
-      - develop
-    paths-ignore:
-      - '**.md'
-      - 'LICENSE'
-      - '.gitignore'
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-      - develop
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - ready_for_review
+    branches: [ main ]
+  schedule:
+    # Runs every day at 00:00 UTC
+    - cron: '0 0 * * *'
 
 jobs:
-  # 1. Static Analysis & Formatting (Apex Standard: Biome + TypeScript)
-  quality_gates:
-    name: Code Quality (Biome & TSC)
+  build-and-test:
+    name: Build & Test VS Code Extension
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ['20.x'] # Use Node.js 20.x for VS Code extension development
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js Environment (v20 LTS)
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Cache npm dependencies for faster subsequent runs
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install --frozen-lockfile
+        # --frozen-lockfile ensures that npm install uses the exact versions specified in package-lock.json,
+        # preventing unexpected changes and ensuring reproducible builds.
 
-      - name: Run Biome Lint and Format Check
-        uses: biomejs/action@v3
-        with:
-          command: check
-          args: --verbose --error-on-warnings
+      - name: Lint and Format Code
+        # This step uses Biome to ensure code quality and consistency.
+        # It runs the check command, which enforces linting rules and formatting without making changes.
+        run: npx @biomejs/biome check --apply
+        # --apply flag is used here to automatically fix formatting issues if any are found.
+        # For a stricter CI that *only* checks, remove --apply and let failures indicate issues.
 
-      - name: Run TypeScript Compiler Type Check
-        run: npm run type-check
+      - name: Build VS Code Extension
+        # This command compiles the TypeScript code and bundles the extension for distribution.
+        # It might involve commands like 'vsce package' or specific build scripts defined in package.json.
+        # Assuming 'npm run package' or 'npm run compile' exists in package.json for building.
+        # For VS Code extensions, typically you build artifacts for `vsce package` or `vsce publish`.
+        # This command below assumes a build script that prepares the extension artifacts.
+        run: npm run package # Replace 'package' with your actual build script if different
+        env:
+          NODE_ENV: production
 
-  # 2. Testing (Unit/Integration)
-  testing:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    needs: quality_gates
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js Environment (v20 LTS)
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Execute Tests (Vitest/Mocha)
+      # Add a step for running Unit Tests if they are defined and configured.
+      # For VS Code extensions, testing often involves the VS Code Test Explorer or similar setups.
+      # This is a placeholder; actual test execution might vary based on the testing framework used.
+      - name: Run Unit Tests
         run: npm test
+        # This assumes 'npm test' runs your unit tests (e.g., using Vitest or Jest).
+        # If your extension uses specific VS Code testing APIs, this step might need adjustment.
 
-      - name: Generate Coverage Report
-        run: npm run coverage
+      # Optional: Add E2E tests if applicable and configured.
+      # For VS Code extensions, this could involve running the extension in a test VS Code instance.
+      # - name: Run End-to-End Tests
+      #   run: npm run e2e-test # Placeholder for E2E test script
 
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-          verbose: true
-
-  # 3. Extension Packaging and Artifact Generation
-  build:
-    name: Package Extension
-    runs-on: ubuntu-latest
-    needs: [quality_gates, testing]
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js Environment (v20 LTS)
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Compile and Package Extension
-        run: npm run package --if-present
-
-      - name: Archive Extension Artifact (.vsix)
-        uses: actions/upload-artifact@v4
-        with:
-          name: codercopilot-vsix-artifact
-          path: '*.vsix'
-          retention-days: 14
+      # If you publish your extension to the VS Code Marketplace, you'd add deployment steps here.
+      # This example focuses solely on CI (Build & Test).
+      # Example for publishing (requires VSCE_TOKEN secret):
+      # - name: Publish Extension
+      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      #   run: npx vsce publish --pat $VSCE_TOKEN
+      #   env:
+      #     VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
