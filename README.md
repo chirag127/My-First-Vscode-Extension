@@ -1,153 +1,157 @@
-# SynthCode-AI-Code-Assistant-VSCode-Extension
+# SynthCode: AI-Powered VS Code Assistant
 
-[![Build Status](https://img.shields.io/github/actions/workflow/user/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/ci.yml?style=flat-square&logo=github)](https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/actions/workflows/ci.yml)
-[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square&logo=codecov)](https://codecov.io/github/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension)
-[![Tech Stack](https://img.shields.io/badge/TypeScript-7.x-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Lint & Format](https://img.shields.io/badge/Biome-latest-orange?style=flat-square&logo=biome)](https://biome.dev/)
-[![License](https://img.shields.io/github/license/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square&logo=creativecommons)](https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/blob/main/LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square&logo=github)](https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/stargazers)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/main/.github/assets/hero-banner.png" alt="SynthCode Hero Banner">
+</p>
 
-**SynthCode** is an AI-powered VS Code extension that provides intelligent, context-aware code completions, real-time refactoring suggestions, and dynamic boilerplate generation to dramatically accelerate your development workflow.
+<p align="center">
+    <a href="https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/ci.yml?branch=main&style=flat-square&logo=githubactions&logoColor=white" alt="Build Status"></a>
+    <a href="https://codecov.io/gh/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension"><img src="https://img.shields.io/codecov/c/github/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square&logo=codecov&logoColor=white" alt="Code Coverage"></a>
+    <a href="#"><img src="https://img.shields.io/badge/tech-TypeScript%20%7C%20Vite%20%7C%20WXT-blue?style=flat-square&logo=typescript" alt="Tech Stack"></a>
+    <a href="#"><img src="https://img.shields.io/badge/lint-BiomeJS-green?style=flat-square&logo=biome" alt="Linter & Formatter"></a>
+    <a href="https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/blob/main/LICENSE"><img src="https://img.shields.io/github/license/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square&color=blueviolet" alt="License"></a>
+    <a href="https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/stargazers"><img src="https://img.shields.io/github/stars/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square&logo=github&color=gold" alt="GitHub stars"></a>
+</p>
 
-## ✨ Features
-
-*   **Intelligent Code Completions:** Leverage advanced AI models to predict and suggest code snippets with unparalleled accuracy.
-*   **Real-time Refactoring:** Receive AI-driven suggestions for code improvements, optimizations, and best-practice adherence as you type.
-*   **Dynamic Boilerplate Generation:** Instantly create common code structures, API calls, and component setups based on your context.
-*   **Context-Aware Assistance:** The AI understands your project's nuances, providing relevant and targeted help.
-*   **Productivity Boost:** Significantly reduce typing, debugging time, and cognitive load.
-
-## 🚀 Architecture & Tech Stack
-
-This extension is meticulously engineered using the latest industry standards for robust, high-performance development.
-
-*   **Primary Language:** TypeScript 7.x (Strict Mode)
-*   **Extension Framework:** VS Code Extension API
-*   **Bundling & Build:** Vite 7 (utilizing Rollup's core for efficient bundling)
-*   **Styling/UI:** Tailwind CSS v4 (for declarative styling)
-*   **Linting & Formatting:** Biome (for lightning-fast code analysis and formatting)
-*   **Testing:** Vitest (for fast unit tests) & Playwright (for comprehensive E2E testing)
-*   **Architecture Pattern:** Feature-Sliced Design (FSD) for maintainable and scalable codebase organization.
-
-mermaid
-graph TD
-    A[Extension API] --> B(UI Layer - React/Preact/Vue Components)
-    B --> C(Features Layer - Business Logic)
-    C --> D(Entities Layer - Core Data Structures)
-    C --> E(API Layer - VS Code API Integrations)
-    E --> F(AI Service Integration)
-    F --> G(External AI Models)
-    D --> H(Shared - Utilities, Types)
-    subgraph Core
-        A
-        B
-        C
-        D
-        E
-        F
-        H
-    end
-    subgraph External
-        G
-    end
-
-
-## 🤝 AI Agent Directives
-
-<details>
-<summary>View AI Agent Directives</summary>
-
-# SYSTEM: APEX TECHNICAL AUTHORITY & ELITE ARCHITECT (DECEMBER 2025 EDITION)
-
-## 1. IDENTITY & PRIME DIRECTIVE
-**Role:** You are a Senior Principal Software Architect and Master Technical Copywriter with **40+ years of elite industry experience**. You operate with absolute precision, enforcing FAANG-level standards and the wisdom of "Managing the Unmanageable."
-**Context:** Current Date is **December 2025**. You are building for the 2026 standard.
-**Output Standard:** Deliver **EXECUTION-ONLY** results. No plans, no "reporting"—only executed code, updated docs, and applied fixes.
-**Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
+<p align="center">
+  <a href="https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/stargazers"><strong>Star ⭐ this Repo</strong></a> to support its development!
+</p>
 
 ---
 
-## 2. INPUT PROCESSING & COGNITION
-*   **SPEECH-TO-TEXT INTERPRETATION PROTOCOL:**
-    *   **Context:** User inputs may contain phonetic errors (homophones, typos).
-    *   **Semantic Correction:** **STRICTLY FORBIDDEN** from executing literal typos. You must **INFER** technical intent based on the project context.
-    *   **Logic Anchor:** Treat the `README.md` as the **Single Source of Truth (SSOT)**.
-*   **MANDATORY MCP INSTRUMENTATION:**
-    *   **No Guessing:** Do not hallucinate APIs.
-    *   **Research First:** Use `linkup`/`brave` to search for **December 2025 Industry Standards**, **Security Threats**, and **2026 UI Trends**.
-    *   **Validation:** Use `docfork` to verify *every* external API signature.
-    *   **Reasoning:** Engage `clear-thought-two` to architect complex flows *before* writing code.
+**SynthCode** is an AI-powered VS Code extension for intelligent code completions, real-time refactoring, and dynamic boilerplate generation. It accelerates development with context-aware assistance, acting as a true pair programmer within your IDE.
 
----
+Built on a modern, high-performance stack, this extension is designed to be fast, reliable, and deeply integrated into the VS Code development workflow.
 
-## 3. CONTEXT-AWARE APEX TECH STACKS (LATE 2025 STANDARDS)
-**Directives:** Detect the project type and apply the corresponding **Apex Toolchain**.
+## 🏛️ Architecture Overview
 
-*   **PRIMARY SCENARIO: WEB / APP / EXTENSION (TypeScript)**
-    *   **Stack:** This project leverages **TypeScript 7.x** (Strict Mode). Key tools include **Vite 7** (with Rolldown), **Tailwind CSS v4**, and the **VS Code Extension API**. For testing, **Vitest** is used for unit tests and **Playwright** for end-to-end tests.
-    *   **Architecture:** Adheres to the **Feature-Sliced Design (FSD)** pattern for modularity and maintainability. State management utilizes standardized Signals.
-    *   **AI Integration:** Deeply integrated with **OpenAI API** (latest models as of Dec 2025) for intelligent code completions and refactoring suggestions. Prioritize modular design, clear API contracts, and robust error handling for all AI model interactions.
-    *   **UI Framework:** Components can be built with React, Preact, or Vue, adhering to FSD principles.
+This project adheres to **Feature-Sliced Design (FSD)**, a scalable architectural methodology for frontend applications. This ensures a clear separation of concerns, enhances maintainability, and simplifies collaboration.
 
-</details>
+sh
+.vscode/
+src/
+├── app/         # App-level logic, providers, and global styles
+├── processes/   # Complex multi-step scenarios (e.g., multi-file refactoring)
+├── pages/       # UI for specific views (e.g., settings page)
+├── features/    # Business-logic features (e.g., 'code-completion', 'refactor-suggestion')
+├── entities/    # Core business entities (e.g., 'user', 'code-snippet')
+├── shared/
+│   ├── api/     # API layer and request logic
+│   ├── lib/     # Helper functions and utilities
+│   ├── ui/      # Reusable UI components (buttons, inputs)
+│   └── config/  # Global constants and configuration
+├── background.ts  # Extension entry point / background script
+└── content.ts     # Content script (if interacting with webviews)
 
-## 📚 Development Setup
+
+## 📜 Table of Contents
+
+- [✨ Core Features](#-core-features)
+- [🚀 Getting Started](#-getting-started)
+- [💻 Development](#-development)
+- [🤖 AI Agent Directives](#-ai-agent-directives)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+
+## ✨ Core Features
+
+- **🧠 AI-Powered Code Completion:** Get context-aware suggestions for functions, variables, and entire code blocks.
+- **🔧 Real-Time Refactoring:** Select code and receive intelligent refactoring suggestions to improve quality and readability.
+- **📝 Dynamic Boilerplate Generation:** Instantly generate boilerplate for components, tests, and configuration files based on project standards.
+- **🌐 Multi-Language Support:** Optimized for TypeScript, JavaScript, Python, and more.
+- **🚀 High-Performance Engine:** Built with modern tooling to ensure minimal latency and a smooth user experience.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v20+)
+- [pnpm](https://pnpm.io/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+### Installation & Setup
 
 1.  **Clone the repository:**
-    bash
+    sh
     git clone https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension.git
     cd SynthCode-AI-Code-Assistant-VSCode-Extension
     
 
 2.  **Install dependencies:**
-    bash
-    npm install
-    # or
-    yarn install
-    # or
+    sh
     pnpm install
     
 
-3.  **Run in development mode:**
-    bash
-    npm run dev
-    # or
-    yarn dev
-    # or
+3.  **Start the development server:**
+    sh
     pnpm dev
     
 
-4.  **Build for production:**
-    bash
-    npm run build
-    # or
-    yarn build
-    # or
-    pnpm build
-    
+4.  **Launch the Extension:**
+    - Open the project in VS Code.
+    - Press `F5` to open a new Extension Development Host window with the extension activated.
 
-## 📜 Scripts
+## 💻 Development
 
-| Script        | Description                                     |
-| :------------ | :---------------------------------------------- |
-| `dev`         | Run the extension in development mode.          |
-| `build`       | Build the extension for production.             |
-| `lint`        | Run Biome linter and formatter.                 |
-| `test:unit`   | Run Vitest unit tests.                          |
-| `test:e2e`    | Run Playwright end-to-end tests.                |
-| `package`     | Package the extension for distribution.         |
+This project uses Vite for a blazing-fast development experience and BiomeJS for unified linting and formatting.
 
-## 📐 Principles
+| Script          | Description                                                    |
+| --------------- | -------------------------------------------------------------- |
+| `pnpm dev`      | Starts the development build with hot-reloading.               |
+| `pnpm build`    | Compiles and bundles the extension for production.             |
+| `pnpm test`     | Runs unit tests using Vitest.                                  |
+| `pnpm test:e2e` | Runs end-to-end tests using Playwright.                        |
+| `pnpm lint`     | Lints and formats the entire codebase with BiomeJS.            |
+| `pnpm package`  | Packages the extension into a `.vsix` file for distribution.   |
 
-*   **SOLID:** Adherence to Object-Oriented Design principles for maintainable code.
-*   **DRY (Don't Repeat Yourself):** Minimize code duplication.
-*   **YAGNI (You Ain't Gonna Need It):** Implement only necessary features.
-*   **FSD (Feature-Sliced Design):** Promote modularity and clear boundaries within the codebase.
+### Core Principles
 
-## ⚖️ License
+- **SOLID:** Code is structured following SOLID principles for maintainability.
+- **DRY (Don't Repeat Yourself):** Reusable logic is abstracted into the `shared` layer.
+- **YAGNI (You Ain't Gonna Need It):** We avoid premature optimization and focus on delivering core value.
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license. See the [LICENSE](LICENSE) file for more details.
+---
 
-## ⭐ Star This Repo
+## 🤖 AI Agent Directives
 
-If you find SynthCode useful, please consider starring this repository on GitHub! Your support is greatly appreciated.
+<details>
+<summary><strong>Expand for AI Development Protocol (December 2025 Standard)</strong></summary>
+
+### **SYSTEM: APEX TECHNICAL AUTHORITY & ELITE ARCHITECT**
+
+#### **1. IDENTITY & PRIME DIRECTIVE**
+-   **Role:** You are a Senior Principal Software Architect with 40+ years of elite industry experience, specialized in high-performance browser extensions and developer tools.
+-   **Context:** It is **December 2025**. You are building for the 2026 standard.
+-   **Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
+
+#### **2. CONTEXT-AWARE APEX TECH STACKS (LATE 2025 STANDARDS)**
+This repository, `SynthCode-AI-Code-Assistant-VSCode-Extension`, is a TypeScript-based VS Code Extension.
+
+-   **PRIMARY SCENARIO: WEB / APP / EXTENSION (TypeScript)**
+    -   **Stack:** This project leverages **TypeScript 6.x (Strict Mode)**, **Vite 7** (powered by Rolldown for speed), and **WXT** (Web Extensions Toolkit) for a unified, cross-browser manifest (`manifest.json`).
+    -   **Architecture:** Adheres strictly to **Feature-Sliced Design (FSD)**. All new components, logic, and types must be correctly placed within the `app`, `processes`, `pages`, `features`, `entities`, or `shared` slices. This is non-negotiable.
+    -   **Linting/Formatting:** The single source of truth is **BiomeJS**. All code MUST pass `pnpm lint` before commit. No other linters or formatters (e.g., ESLint, Prettier) are permitted.
+    -   **Testing:**
+        -   **Unit/Integration:** **Vitest** is used for all unit and integration tests. Utilize the `vi` mocking library.
+        -   **End-to-End (E2E):** **Playwright** is used for E2E testing of the extension's UI and functionality within the VS Code environment.
+    -   **State Management:** For complex UI state, **Signals** are the standard. Avoid legacy state management libraries.
+
+-   **SECONDARY SCENARIO: AI/ML Integration (Python/Rust) - *Reference Only***
+    -   If a local inference model is required, it must be developed as a separate Rust-based binary (using Cargo) exposed via a local server. The TypeScript extension will communicate with this binary via HTTP requests. This maintains a clean separation of concerns and leverages Rust's performance for AI tasks.
+
+#### **3. VERIFICATION & DEPLOYMENT PROTOCOL**
+-   **Pre-Commit Hook:** A pre-commit hook (via `simple-git-hooks`) MUST run `pnpm lint` and `pnpm test`.
+-   **CI/CD Pipeline (`.github/workflows/ci.yml`):** The pipeline is the gatekeeper. It must successfully complete linting, building, unit testing, and E2E testing before any PR can be merged to `main`.
+-   **Dependency Management:** Use `pnpm` for all package management. Regularly run `pnpm up --latest` to update dependencies and resolve security vulnerabilities identified by Dependabot.
+
+</details>
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read the [CONTRIBUTING.md](./.github/CONTRIBUTING.md) file for guidelines on how to submit pull requests, report issues, and suggest improvements.
+
+## 📄 License
+
+This project is licensed under the [CC BY-NC 4.0 License](./LICENSE). See the `LICENSE` file for details.
