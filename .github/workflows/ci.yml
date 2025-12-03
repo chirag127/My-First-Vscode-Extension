@@ -1,75 +1,126 @@
-name: CI
+# CI/CD Pipeline for SynthCode VSCode Extension
+# Enforcing Zero-Defect, High-Velocity Standards (2025/2026)
 
-# Trigger the workflow on push events to the main branch and on pull request events.
-# It will also run on schedule (e.g., daily) to catch stale branches or for regular checks.
+name: SynthCode CI/CD
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
-  schedule:
-    # Runs every day at 00:00 UTC
-    - cron: '0 0 * * *'
+
+# Global permissions required for publishing or advanced interactions
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  build-and-test:
-    name: Build & Test VS Code Extension
+  matrix_build:
+    name: Build & Test (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
-
     strategy:
+      fail-fast: false
       matrix:
-        node-version: ['20.x'] # Use Node.js 20.x for VS Code extension development
+        node-version: ['20.x', '22.x']
 
     steps:
-      - name: Checkout Code
+      - name: 1. Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: 2. Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm' # Cache npm dependencies for faster subsequent runs
+          cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm install --frozen-lockfile
-        # --frozen-lockfile ensures that npm install uses the exact versions specified in package-lock.json,
-        # preventing unexpected changes and ensuring reproducible builds.
+      - name: 3. Install Dependencies (uv equivalent for JS/TS)
+        run: npm ci
 
-      - name: Lint and Format Code
-        # This step uses Biome to ensure code quality and consistency.
-        # It runs the check command, which enforces linting rules and formatting without making changes.
-        run: npx @biomejs/biome check --apply
-        # --apply flag is used here to automatically fix formatting issues if any are found.
-        # For a stricter CI that *only* checks, remove --apply and let failures indicate issues.
+      - name: 4. Run Static Analysis (Biome/Ruff Equivalent)
+        # We use Biome here as per Scenario A stack definition for TS projects
+        run: npx @biomejs/biome check --apply=false --error-on-warnings
 
-      - name: Build VS Code Extension
-        # This command compiles the TypeScript code and bundles the extension for distribution.
-        # It might involve commands like 'vsce package' or specific build scripts defined in package.json.
-        # Assuming 'npm run package' or 'npm run compile' exists in package.json for building.
-        # For VS Code extensions, typically you build artifacts for `vsce package` or `vsce publish`.
-        # This command below assumes a build script that prepares the extension artifacts.
-        run: npm run package # Replace 'package' with your actual build script if different
+      - name: 5. Run Unit Tests (Vitest)
+        # Assuming Vitest is configured for coverage reporting
+        run: npx vitest run --coverage
+
+      - name: 6. Archive Code Coverage Report (Codecov)
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/cobertura-coverage.xml
+        if: success() && matrix.node-version == '22.x'
+
+      - name: 7. Build Extension Package
+        run: npm run build
+
+      - name: 8. Verification: Run End-to-End Tests (Playwright)
+        # This step validates the built extension in a real browser context
+        # Requires installing browsers for Playwright
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+        run: npx playwright install --with-deps
+        # Assuming 'npm run test:e2e' executes Playwright tests
+        # Note: For VSCode extensions, E2E testing often requires specific setup like `vscode-test` or the Playwright VSCode Test Runner Extension context.
+        # We use a placeholder command adhering to the specified stack.
+        run: npm run test:e2e
+
+  security_scan:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: 3. Install Dependencies
+        run: npm ci
+
+      - name: 4. Dependency Vulnerability Check (Snyk/npm audit)
+        # Using npm audit for baseline compliance before external tools
+        run: npm audit --production
         env:
-          NODE_ENV: production
+          # Replace with actual secrets if using Snyk or similar services
+          # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Add a step for running Unit Tests if they are defined and configured.
-      # For VS Code extensions, testing often involves the VS Code Test Explorer or similar setups.
-      # This is a placeholder; actual test execution might vary based on the testing framework used.
-      - name: Run Unit Tests
-        run: npm test
-        # This assumes 'npm test' runs your unit tests (e.g., using Vitest or Jest).
-        # If your extension uses specific VS Code testing APIs, this step might need adjustment.
+  deploy:
+    name: Deploy to Marketplace (Conditional)
+    needs: [matrix_build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: Production
 
-      # Optional: Add E2E tests if applicable and configured.
-      # For VS Code extensions, this could involve running the extension in a test VS Code instance.
-      # - name: Run End-to-End Tests
-      #   run: npm run e2e-test # Placeholder for E2E test script
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
 
-      # If you publish your extension to the VS Code Marketplace, you'd add deployment steps here.
-      # This example focuses solely on CI (Build & Test).
-      # Example for publishing (requires VSCE_TOKEN secret):
-      # - name: Publish Extension
-      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      #   run: npx vsce publish --pat $VSCE_TOKEN
-      #   env:
-      #     VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
+      - name: 2. Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: 3. Install Dependencies
+        run: npm ci
+
+      - name: 4. Create Marketplace Artifact (VSIX)
+        run: npm run package
+
+      - name: 5. Publish to VS Code Marketplace
+        # Requires VSCE tool and access tokens configured as secrets
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+        run: npm install -g vsce
+        run: vsce publish -p ${{ secrets.VSCE_PAT }}
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
