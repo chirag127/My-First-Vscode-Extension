@@ -1,135 +1,74 @@
 # Contributing to SynthCode-AI-Code-Assistant-VSCode-Extension
 
-Thank you for your interest in contributing to **SynthCode-AI-Code-Assistant-VSCode-Extension**! We aim to maintain a high-velocity, zero-defect, and future-proof codebase, reflecting the highest industry standards.
+Welcome to the forefront of AI-assisted development! As a contributor to **SynthCode**, you are helping to define the future of the intelligent IDE experience. We maintain rigorous standards, echoing the principles of Zero-Defect, High-Velocity engineering.
 
-## 1. Code of Conduct
+## 1. Core Philosophy: Apex Standards
 
-This project adheres to the [Contributor Covenant Code of Conduct](https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/blob/main/CODE_OF_CONDUCT.md). By participating, you are expected to uphold its values.
+All contributions must align with the **Apex Technical Authority** mandate:
 
-## 2. Getting Started
+*   **Zero-Defect:** Code must pass all CI checks, including comprehensive testing and linting via **Biome** and **Vitest**.
+*   **Future-Proof:** Favor modern, scalable patterns (e.g., SOLID principles, strict typing).
+*   **High-Velocity:** Clear PRs lead to rapid integration. Small, focused changes are preferred.
 
-### Prerequisites
+## 2. Development Environment Setup (TypeScript/Vite/VSCode Extension)
 
-*   **Node.js:** Version 20+ (LTS recommended)
-*   **npm/Yarn/pnpm:** A modern package manager.
-*   **VS Code:** Latest stable version.
-*   **Git:** For version control.
+Before submitting code, ensure your local environment mirrors the CI pipeline:
 
-### Setup
-
-1.  **Clone the Repository:**
+1.  **Fork and Clone:**
     bash
     git clone https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension.git
     cd SynthCode-AI-Code-Assistant-VSCode-Extension
     
 
-2.  **Install Dependencies:**
+2.  **Install Dependencies:** We use `npm` managed by `pnpm` (recommended for modern TypeScript projects for atomic dependency locking).
     bash
-    npm install # or yarn install or pnpm install
+    npm install -g pnpm
+    pnpm install
     
 
-3.  **Install VS Code Extension Dependencies:**
-    VS Code extensions often require specific build tools and dependencies. Refer to the extension development documentation. For Vite-based TypeScript extensions, this typically involves:
+3.  **Code Formatting & Linting Check:** Ensure your code adheres to the established **Biome** standards locally before pushing.
     bash
-    npm run compile # Or similar build script for VS Code extensions
+    pnpm lint
+    pnpm format:check
     
 
-4.  **Run in Development Mode:**
-    To run the extension within a development VS Code instance:
+4.  **Run Tests:** All new features or fixes **MUST** include accompanying unit/integration tests.
     bash
-    npm run dev # Or specific script for launching the extension host
+    pnpm test:unit
+    # For end-to-end tests (requires running VSCode instance):
+    pnpm test:e2e
     
 
 ## 3. Contribution Workflow
 
-We follow a standard GitHub pull request workflow:
+We utilize a standard GitHub Flow modified for architectural rigor:
 
-1.  **Fork the Repository:** Create your own fork of the `chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension` repository.
-2.  **Create a Branch:** Create a descriptive branch for your feature or bug fix (e.g., `feature/add-new-completion-model` or `fix/incorrect-refactoring-suggestion`).
-    bash
-    git checkout -b my-branch-name
-    
-3.  **Make Your Changes:** Implement your changes, adhering to the project's coding standards.
-4.  **Test Your Changes:** Ensure all existing tests pass and add new tests for your changes if applicable.
-    bash
-    npm test # Or relevant test script
-    
-5.  **Lint and Format:** Ensure your code adheres to the project's linting and formatting rules.
-    bash
-    npm run lint
-    npm run format
-    
-6.  **Commit Your Changes:** Write clear and concise commit messages.
-    bash
-    git add .
-    git commit -m "feat: Add new AI model for code completion"
-    
-7.  **Push to Your Fork:** Push your branch to your forked repository.
-    bash
-    git push origin my-branch-name
-    
-8.  **Open a Pull Request:** Submit a pull request from your branch to the `main` branch of the `chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension` repository.
+### A. Reporting Issues
+Use the official issue templates (`.github/ISSUE_TEMPLATE/bug_report.md` or feature request template) to report bugs or suggest enhancements. Provide **reproducible steps** and context regarding your current VSCode/OS environment.
 
-## 4. Coding Standards & Best Practices
+### B. Opening a Pull Request (PR)
+1.  **Branching Strategy:** Create a new feature or fix branch off `main` (e.g., `feat/context-awareness` or `fix/completion-bug`).
+2.  **Atomic Commits:** Each PR should address one logical change. Do not mix refactoring with feature implementation.
+3.  **Linking:** Reference the associated issue number in your PR title and body (e.g., `feat: Implement Gemini 3.0 integration (#123)`).
+4.  **Description Template:** Use the PR template (`.github/PULL_REQUEST_TEMPLATE.md`) as a checklist.
+5.  **Self-Verification:** Confirm that your changes pass local linting (`pnpm lint`) and testing (`pnpm test`) before submitting.
 
-*   **Language:** TypeScript (Strict mode is enforced).
-*   **Linting & Formatting:** We use [Biome](https://biomejs.dev/) for ultra-fast linting and formatting. Ensure your code is formatted correctly before committing.
-*   **Testing:** We utilize [Vitest](https://vitest.dev/) for unit tests and [Playwright](https://playwright.dev/) for end-to-end tests. Aim for comprehensive test coverage.
-*   **Architecture:** Follow the principles of [Feature-Sliced Design (FSD)](https://feature-sliced.design/) where applicable for modularity and maintainability.
-*   **AI Integration:** Ensure all AI interactions are robust, handle potential errors gracefully, and maintain clear API contracts with the AI service.
-*   **VS Code Extension Best Practices:** Refer to the official [VS Code Extension API documentation](https://code.visualstudio.com/api) for guidance.
-*   **SOLID Principles:** Adhere to SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion) in your design.
-*   **DRY (Don't Repeat Yourself):** Avoid redundant code.
-*   **YAGNI (You Ain't Gonna Need It):** Only implement functionality that is currently required.
+## 4. Architectural Guidelines
 
-## 5. Reporting Issues
+As this is a high-performance VSCode Extension built on **TypeScript/Vite**, adhere to:
 
-Before reporting a bug, please check if it has already been reported. If not, open a new issue with a clear title and a detailed description, including:
+*   **Strict Typing:** Maximize TypeScript's capabilities. Avoid `any`.
+*   **State Management:** Prefer immutable state patterns or modern Signals architecture within the extension host.
+*   **API Contract Clarity:** All internal modules must expose clear interfaces (`.d.ts` files where necessary).
+*   **Performance:** Since this operates within the VSCode thread, prioritize non-blocking I/O operations and efficient computation. **Avoid synchronous operations** that block the main extension host.
 
-*   Steps to reproduce the bug.
-*   Expected behavior.
-*   Actual behavior.
-*   Relevant environment details (VS Code version, OS, etc.).
-*   Any relevant logs or error messages.
+## 5. Security Contributions
 
-Use the provided issue templates in the `.github/ISSUE_TEMPLATE/` directory.
+Security is paramount for developer tools. If you discover a vulnerability, please follow responsible disclosure:
 
-## 6. Feature Requests
+1.  Do not open a public issue.
+2.  Submit your findings privately via email to security@example.com (replace with actual security contact if available) or open a **Draft PR** that **only** addresses the security fix and follow the guidelines in `.github/SECURITY.md`.
 
-For feature requests, please open a new issue and use the feature request template. Provide a clear explanation of the proposed feature and its benefits.
+--- 
 
-## 7. Pull Request Guidelines
-
-*   **Small, Focused PRs:** Keep pull requests focused on a single concern (bug fix, feature implementation).
-*   **Clear Descriptions:** Provide a comprehensive description of your changes in the pull request template.
-*   **Link to Issues:** Reference any related issues using keywords like `Fixes #123` or `Closes #456` in your PR description.
-*   **Code Reviews:** Be prepared to respond to feedback from reviewers and make necessary adjustments.
-
-## 8. Project Structure Overview
-
-
-SynthCode-AI-Code-Assistant-VSCode-Extension/
-├── .github/                 # GitHub configuration (workflows, issue templates, etc.)
-│   ├── ISSUE_TEMPLATE/
-│   ├── workflows/           # CI/CD workflows
-│   └── ...
-├── src/                     # Source code
-│   ├── extension.ts         # Extension entry point
-│   ├── ai/                  # AI related services and models
-│   ├── ui/                  # UI components and logic
-│   ├── features/            # Domain-specific features (e.g., code completion, refactoring)
-│   └── utils/               # Utility functions
-├── test/                    # Unit and integration tests
-├── .vscode/                 # VS Code specific settings
-├── .gitignore
-├── biome.json               # Biome configuration
-├── package.json             # Project dependencies and scripts
-├── tsconfig.json            # TypeScript configuration
-└── README.md                # Project README
-
-
-## 9. Questions?
-
-If you have any questions, feel free to open an issue or reach out on the project's discussion forum (if available).
-
----
+*By contributing, you agree that your contributions will be licensed under the **CC BY-NC 4.0** License, as specified in the root `LICENSE` file.*
