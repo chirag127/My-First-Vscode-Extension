@@ -1,66 +1,144 @@
-# 🤖 AGENTS.md: Apex AI Orchestration Directives
+# SynthCode-AI-Code-Assistant-VSCode-Extension
 
-## 1. IDENTITY & PRIME DIRECTIVE
-**Role:** You are a Senior Principal Software Architect and Master Technical Copywriter operating as the **Apex Technical Authority**. Your directives come from the **December 2025 standard**.
-**Context:** This repository, `SynthCode-AI-Code-Assistant-VSCode-Extension`, is a **TypeScript/Vite-based VS Code Extension** focused on high-velocity AI-assisted development.
-**Output Standard:** Deliver **EXECUTION-ONLY** results. Every action must be verifiable and zero-defect.
-**Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
+[![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/ci.yml?label=Build&style=flat-square)](https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension/actions/workflows/ci.yml)
+[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?label=Coverage&style=flat-square)](https://codecov.io/gh/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat-square)](https://www.typescriptlang.org/)
+[![Frameworks](https://img.shields.io/badge/Vite%20%7C%20Biome%20%7C%20Playwright-Core%20Stack-F9A825?style=flat-square)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-blue?style=flat-square)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension?style=flat-square)](https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension)
 
---- 
-
-## 2. INPUT PROCESSING & COGNITION
-
-*   **TERMINOLOGY RESOLUTION:** Phonetic interpretations must be resolved into the nearest standard technical concept. **Prioritize API signatures over colloquial usage.**
-*   **MANDATORY MCP INSTRUMENTATION (Extension Context):**
-    *   **No Guessing:** Do not hallucinate VS Code APIs or TypeScript features not present in the v6.x standard. 
-    *   **Research First:** Use `linkup`/`brave` to search for **December 2025 VS Code Extension API Updates**, **TypeScript 6.x Strict Mode Guidelines**, and **Modern Extension Lifecycle Hooks**.
-    *   **Validation:** Use `docfork` to verify *every* `vscode.*` interface contract.
-    *   **Reasoning:** Engage `clear-thought-two` to architect asynchronous communication channels between the Extension Host and the Language Server (if applicable).
+### 🌟 Star ⭐ this Repo to Support Future Development!
 
 --- 
 
-## 3. CONTEXT-AWARE APEX TOOLCHAIN (LATE 2025 STANDARDS)
+**SynthCode** is an advanced, context-aware VS Code Extension designed to synthesize complex development tasks into rapid execution. It delivers intelligent code completions, on-demand refactoring suggestions, and dynamic boilerplate generation directly within the editor, optimizing developer flow state.
 
-**Primary Scenario: WEB / APP / EXTENSION (TypeScript)**
+---
 
-*   **Stack:** **TypeScript 6.x** (Strict Mode enforced across all files), **Vite 7** (Build Toolchain), **Biome** (Linter/Formatter v1.8+), **Vitest** (Unit Testing), **Playwright** (E2E/Integration Testing).
-*   **Architecture:** **Feature-Sliced Design (FSD)** applied to the extension structure (`/src/features`, `/src/entities`, `/src/shared`). Strict dependency injection and dependency inversion are mandatory for all extension layers.
-*   **AI Integration:** The primary integration target is the **OpenAI GPT-4o Turbo model** (or the preferred December 2025 equivalent). All AI calls must utilize a dedicated `AIService` facade following the **Repository Pattern** for easy swap-out or mocking during testing.
-*   **Extension Framework:** Utilize **WXT** (or equivalent modern VS Code framework) for boilerplate reduction and standardized manifests.
+## 🧠 AI Agent Directives (The Apex Protocol)
 
---- 
+<details>
+<summary>Click to expand: Core Architectural Alignment & Verification</summary>
 
-## 4. DEVELOPMENT STANDARDS & VERIFICATION
+### 1. Identity & Context
+**Role:** Senior Principal Software Architect / Master Technical Copywriter (40+ Years Experience).
+**Context:** December 2025 Standard (Future-Proofing).
+**Goal:** Maintain Zero-Defect, High-Velocity delivery for this TypeScript/VS Code Extension environment.
 
-*   **Linting & Formatting:** **Biome** is the singular tool. Configuration must enforce near-zero tolerance for style drift.
-*   **Testing Pyramid:** Unit tests (`*.test.ts`) must cover 90%+ line coverage on core logic layers. Integration tests using Playwright must simulate key user journeys (e.g., invocation, context capture, suggestion display).
-*   **Security Mandate:** **NEVER** expose API keys or sensitive configuration directly in client-side code. All secrets must be managed via VS Code Secret Storage APIs or secure build-time variables.
-*   **PRINCIPLES:** Adherence to **SOLID**, **DRY**, and **YAGNI** is non-negotiable. Over-engineering for future possibilities is explicitly forbidden.
+### 2. Apex Toolchain & Stack Enforcement
+This project adheres to **SCENARIO A: WEB / APP / GUI (Modern Frontend)** standards:
+*   **Language:** TypeScript (Strict Mode Enforced).
+*   **Bundler/Runner:** Vite 7.x.
+*   **Styling:** TailwindCSS v4 (or equivalent utility-first approach).
+*   **Testing Suite:** Vitest (Unit/Integration) & Playwright (End-to-End).
+*   **Linter/Formatter:** Biome (Unified Speed and Simplicity).
+*   **Architecture Pattern:** Feature-Sliced Design (FSD) for superior module boundaries and scalability.
 
---- 
+### 3. Architectural Principles
+All generated code and proposed fixes must adhere rigorously to:
+*   **SOLID Principles:** Especially Single Responsibility (SRP) for extension components and Dependency Inversion (DIP) for AI service abstraction.
+*   **DRY:** Eliminate all duplicate logic, relying on shared utility functions within the `shared` or `utils` layer of the FSD structure.
+*   **YAGNI:** Only implement features explicitly requested or immediately necessary to meet the core value proposition (Completion, Refactoring, Generation).
 
-## 5. VERIFICATION COMMANDS (Executable by Agents)
+### 4. Verification & Deployment Commands
+To ensure compliance and operational readiness, utilize these commands:
 
-*   **Setup & Dependencies (using uv/npm/yarn/pnpm):**
-    bash
+| Task | Command | Purpose |
+| :--- | :--- | :--- |
+| **Format Check** | `npx @biomejs/biome check --apply ./src` | Apply formatting and lint fixes automatically. |
+| **Unit Testing** | `npm run test:unit` | Execute Vitest suite across all feature modules. |
+| **E2E Testing** | `npx playwright test` | Validate extension functionality in a headless browser context. |
+| **Build Extension** | `npm run build` | Compile TypeScript and bundle assets for VS Code packaging. |
+
+</details>
+
+## 2. Architecture Visualization (FSD Example)
+
+mermaid
+graph TD
+    subgraph SynthCode Extension Layer
+        A[UI: VSCode Views/Commands] --> B(Features/Completion);
+        A --> C(Features/Refactoring);
+        A --> D(Features/Generation);
+    end
+
+    B --> E(Entities: CodeAST/Context);
+    C --> E;
+    D --> E;
+
+    E --> F(Shared: Types/Interfaces);
+    B --> G(Shared: AI-Service-Adapter);
+    C --> G;
+    D --> G;
+
+    G --> H[External: AI API Gateway];
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style H fill:#ccf,stroke:#333,stroke-width:2px
+
+
+## 3. Table of Contents
+
+1.  [AI Agent Directives](#-ai-agent-directives-the-apex-protocol)
+2.  [Architecture Visualization (FSD Example)](#-architecture-visualization-fsd-example)
+3.  [Table of Contents](#-table-of-contents)
+4.  [Core Features](#-core-features)
+5.  [Development Workflow](#-development-workflow)
+    *   [Prerequisites](#-prerequisites)
+    *   [Setup & Installation](#-setup--installation)
+    *   [Execution Scripts](#-execution-scripts)
+6.  [Contributing Guidelines](#-contributing-guidelines)
+7.  [Security & Licensing](#-security--licensing)
+
+## 4. Core Features
+
+*   **Intelligent Contextual Completion:** Leverages the language server protocol awareness combined with external AI models to suggest syntactically and semantically correct code blocks.
+*   **Real-Time Refactoring:** Analyze selected code blocks and propose idiomatic, optimized refactoring paths (e.g., extracting methods, simplifying conditionals).
+*   **Dynamic Boilerplate Generation:** Generate complex file structures, configuration scaffolding (e.g., `tsconfig.json`, complex hooks), or test stubs based on natural language prompts.
+*   **Strict Typing Enforcement:** Built entirely on TypeScript, ensuring all internal logic and external API interactions are rigorously type-checked by the compiler.
+
+## 5. Development Workflow
+
+### Prerequisites
+
+*   Node.js (v18.x or higher)
+*   Git
+*   VS Code
+
+### Setup & Installation
+
+Follow these steps to clone the repository and prepare the development environment according to Apex standards:
+
+bash
+# 1. Clone the repository
+git clone https://github.com/chirag127/SynthCode-AI-Code-Assistant-VSCode-Extension.git
+cd SynthCode-AI-Code-Assistant-VSCode-Extension
+
+# 2. Use uv (or npm/yarn for frontend ecosystem) for dependency resolution and installation
 npm install
-# Ensure all dependencies are hoisted/managed correctly if using workspaces
 
-*   **Linting & Formatting Check:**
-    bash
-bm check
+# 3. Ensure all code conforms to Biome standards
+npx @biomejs/biome check --apply
 
-*   **Unit Testing (High Coverage Target):**
-    bash
-npm run test:unit
 
-*   **End-to-End Verification (Playwright):**
-    bash
-npm run test:e2e
+### Execution Scripts
 
-*   **Build & Packaging:**
-    bash
-npm run build
-# To create the VSIX package:
-vsce package
+All development commands are managed via `package.json` scripts, optimized for CI/CD integration:
 
+| Script | Command | Description |
+| :--- | :--- | :--- |
+| `build` | `npm run build` | Compiles TypeScript using Vite into production assets. |
+| `watch` | `npm run dev` | Runs the development server for hot-reloading during extension development. |
+| `test:unit` | `npm run test:unit` | Runs Vitest unit and integration tests. |
+| `test:e2e` | `npx playwright test` | Executes Playwright end-to-end functional validation. |
+| `lint:fix` | `npx @biomejs/biome check --apply` | Formats and fixes code style issues globally. |
+
+## 6. Contributing Guidelines
+
+We welcome contributions that uphold the **Zero-Defect, High-Velocity** standard. Please review the comprehensive guidelines located at **`.github/CONTRIBUTING.md`** before submitting Pull Requests. All contributions must pass automated checks enforced by `.github/workflows/ci.yml`.
+
+## 7. Security & Licensing
+
+**Security:** Refer to **`.github/SECURITY.md`** for vulnerability disclosure procedures. We prioritize secure coding practices, especially around external API key handling.
+
+**License:** This project is licensed under the **CC BY-NC 4.0 License**. See the **LICENSE** file for details. Commercial use without express permission is prohibited.
